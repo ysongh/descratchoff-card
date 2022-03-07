@@ -1,12 +1,12 @@
 import React from 'react';
 
 import './App.css';
-import Scratchoff from './components/Scratchoff';
+import ScratchCard from './pages/ScratchCard' ;
 
 function App() {
   return (
     <div style={{ display: "flex"}}>
-      <Scratchoff />
+      <ScratchCard />
     </div>
   );
 }

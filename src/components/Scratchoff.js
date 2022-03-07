@@ -3,18 +3,18 @@ import Sketch from "react-p5";
 
 function Scratchoff() {
 	const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
+    p5.createCanvas(400, 400).parent(canvasParentRef);
   };
 
   const draw = (p5) => {
-    p5.strokeWeight(20);
+    p5.strokeWeight(50);
     if(p5.mouseIsPressed === true) {
       p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
     }
   };
 
 	return (
-		<div className="container">
+		<div style={{ position: "relative" }}>
 			<section>
         <div className="box">
             <h2>DeScratchOff Card</h2>
