@@ -14,9 +14,9 @@ function Scratchoff() {
   };
 
 	return (
-		<div>
+		<div className="container">
 			<section>
-        <div class="box">
+        <div className="box">
             <h2>DeScratchOff Card</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
         </div>

@@ -7,8 +7,6 @@ function App() {
   return (
     <div style={{ display: "flex"}}>
       <Scratchoff />
-      <Scratchoff />
-      <Scratchoff />
     </div>
   );
 }
