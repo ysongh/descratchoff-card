@@ -20,7 +20,7 @@ function Scratchoff({ image }) {
           <img src={image} alt="Icon" />
         </center>
       </section>
-      {/* <Sketch setup={setup} draw={draw} /> */}
+      <Sketch setup={setup} draw={draw} />
 		</div>
 	)
 }
