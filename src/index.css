@@ -18,7 +18,7 @@ code {
   box-sizing: border-box;
 }
 
-section {
+.scratch-card {
   position: absolute;
   top: 0;
   left: 0;
@@ -30,19 +30,14 @@ section {
   background: #000;
 }
 
-section .box {
-  max-width: 80%;
+.scratch-card .box {
   color: #fff;
+  padding: 2rem;
 }
 
-section .box h2{
-  font-size: 3em;
-  color: yellow;
-}
-
-section .box p{
-  font-size: 1.2em;
-  color: green;
+.scratch-card .box img{
+  width: 80%;
+  object-fit: contain;
 }
 
 canvas {

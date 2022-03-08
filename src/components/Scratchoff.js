@@ -1,7 +1,7 @@
 import React from 'react';
 import Sketch from "react-p5";
 
-function Scratchoff() {
+function Scratchoff({ image }) {
 	const setup = (p5, canvasParentRef) => {
     p5.createCanvas(400, 400).parent(canvasParentRef);
   };
@@ -15,13 +15,12 @@ function Scratchoff() {
 
 	return (
 		<div style={{ position: "relative" }}>
-			<section>
-        <div className="box">
-            <h2>DeScratchOff Card</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-        </div>
+			<section className="scratch-card">
+        <center className="box">
+          <img src={image} alt="Icon" />
+        </center>
       </section>
-      <Sketch setup={setup} draw={draw} />
+      {/* <Sketch setup={setup} draw={draw} /> */}
 		</div>
 	)
 }
