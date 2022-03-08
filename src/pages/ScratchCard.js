@@ -16,6 +16,28 @@ function ScratchCard() {
           <Scratchoff />
         </div>
       </div>
+      <div className="row" style={{ marginTop: '15rem'}}>
+        <div className="col-4">
+          <Scratchoff />
+        </div>
+        <div className="col-4">
+          <Scratchoff />
+        </div>
+        <div className="col-4">
+          <Scratchoff />
+        </div>
+      </div>
+      <div className="row" style={{ marginTop: '15rem'}}>
+        <div className="col-4">
+          <Scratchoff />
+        </div>
+        <div className="col-4">
+          <Scratchoff />
+        </div>
+        <div className="col-4">
+          <Scratchoff />
+        </div>
+      </div>
     </div>
   )
 }
