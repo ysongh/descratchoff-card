@@ -48,4 +48,6 @@ canvas {
   background: #ffffff;
   z-index: 1;
   mix-blend-mode: screen;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
