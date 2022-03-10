@@ -8,6 +8,22 @@ contract DeScratchOff is VRFConsumerBase{
     uint256 internal fee;
     
     uint256 public randomResult;
+    uint public scratchCardSupply = 0;
+    mapping(uint => ScratchCard) public scratchCards;
+
+    struct ScratchCard {
+        uint id;
+        uint[] numbers;
+        bool isScratch;
+        address owner;
+    }
+
+    event ScratchCardPurchase (
+        uint id,
+        uint[] numbers,
+        bool isScratch,
+        address owner
+    );
 
     /**
      * Constructor inherits VRFConsumerBase
@@ -25,6 +41,41 @@ contract DeScratchOff is VRFConsumerBase{
     {
         keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
         fee = 0.0001 * 10 ** 18; // 0.0001 LINK
+    }
+
+    /** 
+     * Buy a Scratch Card
+     */
+    function buyScratchCard() external {
+        scratchCardSupply++;
+
+        scratchCards[scratchCardSupply] = ScratchCard(scratchCardSupply, new uint[](0), false, msg.sender);
+        emit ScratchCardPurchase(scratchCardSupply, new uint[](0), false, msg.sender);
+    }
+
+    /** 
+     * Get numbers on Scratch Card
+     */
+    function getNumbersByScratchCard(uint _id) public view returns (uint [] memory){
+        ScratchCard storage _scratchCard = scratchCards[_id];
+        return _scratchCard.numbers;
+    }
+
+    /** 
+     * Set list of random numbers on Scratch Card
+     */
+    function fillScratchCard(uint _id) external {
+        ScratchCard storage _scratchCard = scratchCards[_id];
+
+        require(_scratchCard.isScratch == false, "You already use this Scratch Card");
+        _scratchCard.isScratch = true;
+
+        //getRandomNumber();
+
+        for(uint i = 0; i < 9; i++){
+            uint256 _randomNumber = uint256(keccak256(abi.encode(randomResult, i))) % 9 + 1;
+            _scratchCard.numbers.push(_randomNumber);
+        }
     }
 
     /** 
