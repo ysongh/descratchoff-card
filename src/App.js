@@ -25,7 +25,8 @@ function App() {
           <Route
             path="/"
             element={
-              <Home />} />
+              <Home
+                DSOContract={DSOContract} />} />
         </Routes>
       </HashRouter>
       
