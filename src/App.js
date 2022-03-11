@@ -19,9 +19,10 @@ function App() {
       <HashRouter>
         <Routes>
           <Route
-            path="/scratch-card"
+            path="/scratch-card/:id"
             element={
-              <ScratchCard />} />
+              <ScratchCard
+                DSOContract={DSOContract} />} />
           <Route
             path="/"
             element={
