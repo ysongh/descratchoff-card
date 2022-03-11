@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
+import { DESCRATCHOFF_ADDRESS, COVALENT_APIKEY } from '../config';
 import ScratchCardsList from '../components/ScratchCardsList';
 
-function Home({ DSOContract }) {
+function Home({ walletAddress, DSOContract }) {
   const [scratchCards, setScratchCards] = useState([]);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
@@ -12,9 +13,21 @@ function Home({ DSOContract }) {
   }, [DSOContract])
 
   const getScratchCard = async () => {
-    const nft = await DSOContract.scratchCards(1);
-    console.log(nft);
-    setScratchCards([nft]);
+    const nfts = await fetch(`https://api.covalenthq.com/v1/80001/tokens/${DESCRATCHOFF_ADDRESS}/nft_token_ids/?quote-currency=USD&format=JSON&key=${COVALENT_APIKEY}`);
+    const { data } = await nfts.json();
+    console.log(data);
+
+    let cards = [];
+    for(let i = 0; i < data.items.length; i++){
+      const nft = await DSOContract.scratchCards(data.items[i].token_id);
+      
+      if(nft.owner == walletAddress){
+        cards.push(nft);
+      }
+    }
+
+    console.log(cards);
+    setScratchCards(cards);
   }
   
   const purchaseCard = async () => {

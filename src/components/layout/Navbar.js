@@ -2,9 +2,8 @@ import React from 'react';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
+import { DESCRATCHOFF_ADDRESS } from '../../config';
 import DeScratchOff from '../../artifacts/contracts/DeScratchOff.sol/DeScratchOff.json';
-
-const DESCRATCHOFF_ADDRESS = "0xfDf46F470b85F5ab708e2cFb2Ca48f1bF1f54a8B";
 
 function Navbar({ walletAddress, setWalletAddress, setDSOContract }) {
   const connectWallet = async () => {

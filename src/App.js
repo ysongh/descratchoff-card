@@ -26,6 +26,7 @@ function App() {
             path="/"
             element={
               <Home
+                walletAddress={walletAddress}
                 DSOContract={DSOContract} />} />
         </Routes>
       </HashRouter>
