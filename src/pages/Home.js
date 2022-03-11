@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+
+import ScratchCardsList from '../components/ScratchCardsList';
 
 function Home({ DSOContract }) {
+  const [scratchCards, setScratchCards] = useState([]);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
 
+  useEffect(() => {
+    if(DSOContract) getScratchCard();
+  }, [DSOContract])
+
+  const getScratchCard = async () => {
+    const nft = await DSOContract.scratchCards(1);
+    console.log(nft);
+    setScratchCards([nft]);
+  }
+  
   const purchaseCard = async () => {
     try {
       setPurchaseLoading(true);
@@ -42,6 +54,12 @@ function Home({ DSOContract }) {
             {transactionHash.substring(0, 10) + '...' + transactionHash.substring(56, 66)}
           </a>
         </p>
+      }
+      <hr />
+      <h2>Your Digital scratch cards</h2>
+      {scratchCards.length
+        ? <ScratchCardsList scratchCards={scratchCards} />
+        : <p className="text-danger">You do not have any digital scratch cards </p>
       }
     </div>
   )
