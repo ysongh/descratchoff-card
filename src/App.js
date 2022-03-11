@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import Navbar from './components/layout/Navbar';
+import Home from './pages/Home';
 import ScratchCard from './pages/ScratchCard' ;
 
 function App() {
@@ -14,7 +16,19 @@ function App() {
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
         setDSOContract={setDSOContract} />
-      <ScratchCard />
+      <HashRouter>
+        <Routes>
+          <Route
+            path="/scratch-card"
+            element={
+              <ScratchCard />} />
+          <Route
+            path="/"
+            element={
+              <Home />} />
+        </Routes>
+      </HashRouter>
+      
     </div>
   );
 }
