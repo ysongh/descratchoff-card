@@ -1,5 +1,6 @@
 import React, { useState }from 'react';
 import { NFTStorage, File } from 'nft.storage';
+import * as htmlToImage from 'html-to-image';
 
 import { NFT_STRORAGE_APIKEY } from '../config';
 
@@ -36,6 +37,11 @@ function CreateCard({ user, mint, account }) {
 
       const metadata = await client.storeDirectory(sendFiles);
       console.log(metadata);
+
+      const userCollection = document.getElementById("user-collection");
+      const dataUrl = await htmlToImage.toPng(userCollection);
+      console.log(dataUrl);
+
       setLoading(false);
     } catch(error) {
       console.error(error);
@@ -53,7 +59,7 @@ function CreateCard({ user, mint, account }) {
           </label>
           <input className="form-control" type="file" id="formFileMultiple" onChange={getImage} multiple />
         </div>
-        <div className="row my-4">
+        <div id="user-collection" className="row my-4">
           {imagesList.map((image, index) => (
             <div key={index} className="col-4">
               <img src={URL.createObjectURL(image.file)} className="img-fluid" alt={image.fileName} />
