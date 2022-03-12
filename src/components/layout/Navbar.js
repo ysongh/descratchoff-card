@@ -33,6 +33,9 @@ function Navbar({ walletAddress, setWalletAddress, setDSOContract }) {
             <li className="nav-item">
               <Link className="nav-link" aria-current="page" to="/">Home</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" aria-current="page" to="/create-card">Create Card</Link>
+            </li>
           </ul>
           <button className="btn btn-outline-success" type="submit"  onClick={connectWallet}>
             {walletAddress ? walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42) : "Connect to Wallet"}
