@@ -56,43 +56,44 @@ function ScratchCard({ DSOContract }) {
   }
 
   return (
-    <div className="container">
+    <div className="container bg-light" style={{ height: "70vh"}}>
       {showCard
         ?  <>
-        <div className="row">
-            <div className="col-4">
-              <Scratchoff image={numbers[0] && images[numbers[0].toString()]} />
+            <h2 className="text-center mt-3">Right Click and hold to scratch the card</h2>
+            <div className="row justify-content-center mt-3">
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[0] && images[numbers[0].toString()]} />
+              </div>
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[1] && images[numbers[1].toString()]} />
+              </div>
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[2] && images[numbers[2].toString()]} />
+              </div>
             </div>
-            <div className="col-4">
-              <Scratchoff image={numbers[1] && images[numbers[1].toString()]} />
+            <div className="row justify-content-center" style={{ marginTop: '10rem'}}>
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[3] && images[numbers[3].toString()]} />
+              </div>
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[4] && images[numbers[4].toString()]} />
+              </div>
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[5] && images[numbers[5].toString()]} />
+              </div>
             </div>
-            <div className="col-4">
-              <Scratchoff image={numbers[2] && images[numbers[2].toString()]} />
+            <div className="row justify-content-center" style={{ marginTop: '10rem'}}>
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[6] && images[numbers[6].toString()]} />
+              </div>
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[7] && images[numbers[7].toString()]} />
+              </div>
+              <div className="col-sm-4 col-lg-2">
+                <Scratchoff image={numbers[8] && images[numbers[8].toString()]} />
+              </div>
             </div>
-          </div>
-          <div className="row" style={{ marginTop: '15rem'}}>
-            <div className="col-4">
-              <Scratchoff image={numbers[3] && images[numbers[3].toString()]} />
-            </div>
-            <div className="col-4">
-              <Scratchoff image={numbers[4] && images[numbers[4].toString()]} />
-            </div>
-            <div className="col-4">
-              <Scratchoff image={numbers[5] && images[numbers[5].toString()]} />
-            </div>
-          </div>
-          <div className="row" style={{ marginTop: '15rem'}}>
-            <div className="col-4">
-              <Scratchoff image={numbers[6] && images[numbers[6].toString()]} />
-            </div>
-            <div className="col-4">
-              <Scratchoff image={numbers[7] && images[numbers[7].toString()]} />
-            </div>
-            <div className="col-4">
-              <Scratchoff image={numbers[8] && images[numbers[8].toString()]} />
-            </div>
-          </div>
-        </>
+          </>
         : <center>
             <h2 className="mt-4 mb-3">Redeem your digital scratch card</h2>
             <button className="btn btn-primary btn-lg" onClick={redeemCard}>
