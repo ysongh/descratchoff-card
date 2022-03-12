@@ -1,7 +1,13 @@
 import React, { useState }from 'react';
+import { NFTStorage, File } from 'nft.storage';
+
+import { NFT_STRORAGE_APIKEY } from '../config';
+
+const client = new NFTStorage({ token: NFT_STRORAGE_APIKEY })
 
 function CreateCard({ user, mint, account }) {
   const [imagesList, setImagesList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getImage = event => {
     const files = event.target.files;
@@ -16,6 +22,25 @@ function CreateCard({ user, mint, account }) {
       });
     }
     setImagesList(newImages);
+  }
+
+  const createCard = async () => {
+    try {
+      setLoading(true);
+
+      let sendFiles = [];
+      
+      for(let image of imagesList){
+        sendFiles.push(new File([image.file], image.fileName, { type: image.fileType }));
+      }
+
+      const metadata = await client.storeDirectory(sendFiles);
+      console.log(metadata);
+      setLoading(false);
+    } catch(error) {
+      console.error(error);
+      setLoading(false);
+    }
   }
 
   return (
@@ -35,9 +60,12 @@ function CreateCard({ user, mint, account }) {
             </div>
            ))}
         </div>
-        <button className="btn btn-primary mb-3" onClick={getImage}>
-          Create Card
-        </button>
+        {loading
+           ? <p>Loading...</p>
+           : <button className="btn btn-primary mb-3" onClick={createCard}>
+              Create Card
+            </button>
+        }
       </div>
     </div>
   )
