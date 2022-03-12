@@ -11,28 +11,25 @@ function App() {
   const [DSOContract, setDSOContract] = useState(null);
 
   return (
-    <div>
+    <HashRouter>
       <Navbar
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
         setDSOContract={setDSOContract} />
-      <HashRouter>
-        <Routes>
-          <Route
-            path="/scratch-card/:id"
-            element={
-              <ScratchCard
-                DSOContract={DSOContract} />} />
-          <Route
-            path="/"
-            element={
-              <Home
-                walletAddress={walletAddress}
-                DSOContract={DSOContract} />} />
-        </Routes>
-      </HashRouter>
-      
-    </div>
+      <Routes>
+        <Route
+          path="/scratch-card/:id"
+          element={
+            <ScratchCard
+              DSOContract={DSOContract} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              walletAddress={walletAddress}
+              DSOContract={DSOContract} />} />
+      </Routes>
+    </HashRouter>
   );
 }
 
