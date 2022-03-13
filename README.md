@@ -8,6 +8,7 @@ A digital scratch card Dapp where users can win prizes by matching 3 images
 - Hardhat
 - Ether.js
 - nft.storage (Store images for the digital scratch card on IPFS)
+- Covalent API (Get NFT token IDs for contract using Covalent API)
 - NFTPort API (Mint the NFT of the digital scratch card on Polygon for free using Easy Mint API)
 - Chainlink VRF (Determine if the user won something from digital scratch card )
 - Lighthouse (Store digital scratch card's cover on IPFS forever)
