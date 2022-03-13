@@ -9,6 +9,7 @@ import CreateCard from './pages/CreateCard';
 
 function App() {
   const [walletAddress, setWalletAddress] = useState('');
+  const [provider, setProvider] = useState(null);
   const [DSOContract, setDSOContract] = useState(null);
 
   return (
@@ -16,6 +17,7 @@ function App() {
       <Navbar
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
+        setProvider={setProvider}
         setDSOContract={setDSOContract} />
       <Routes>
         <Route
@@ -27,6 +29,7 @@ function App() {
           path="/create-card"
           element={
             <CreateCard
+              provider={provider}
               DSOContract={DSOContract} />} />
         <Route
           path="/"

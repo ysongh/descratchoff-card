@@ -6,12 +6,14 @@ import Web3Modal from 'web3modal';
 import { DESCRATCHOFF_ADDRESS } from '../../config';
 import DeScratchOff from '../../artifacts/contracts/DeScratchOff.sol/DeScratchOff.json';
 
-function Navbar({ walletAddress, setWalletAddress, setDSOContract }) {
+function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract }) {
   const connectWallet = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
+    
     const provider = new ethers.providers.Web3Provider(connection);  
     console.log(provider);
+    setProvider(provider);
 
     const signer = provider.getSigner();
     const address = await signer.getAddress();
