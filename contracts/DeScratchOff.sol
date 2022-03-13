@@ -2,10 +2,10 @@
 pragma solidity ^0.8.7;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract DeScratchOff is VRFConsumerBase, ERC721{
+contract DeScratchOff is VRFConsumerBase, ERC721URIStorage{
     bytes32 internal keyHash;
     uint256 internal fee;
 
@@ -14,20 +14,38 @@ contract DeScratchOff is VRFConsumerBase, ERC721{
     
     uint256 public randomResult;
     uint public scratchCardSupply = 0;
+    uint public artistCardTotal = 0;
     mapping(uint => ScratchCard) public scratchCards;
+    mapping(uint => ArtistCard) public artistCards;
 
     struct ScratchCard {
         uint id;
+        uint artistCardId;
         uint[] numbers;
         bool isScratch;
         address owner;
     }
 
+    struct ArtistCard {
+        uint id;
+        string coverPhotoCid;
+        string imagesCid;
+        address artist;
+    }
+
     event ScratchCardPurchase (
         uint id,
+        uint artistCardId,
         uint[] numbers,
         bool isScratch,
         address owner
+    );
+
+    event ScratchCardCreated (
+        uint id,
+        string coverPhotoCid,
+        string imagesCid,
+        address artist
     );
 
     /**
@@ -50,17 +68,30 @@ contract DeScratchOff is VRFConsumerBase, ERC721{
     }
 
     /** 
+     * Create a Scratch Card
+     */
+    function createScratchCard(string memory _coverPhotoCid, string memory _imagesCid) external {
+        artistCardTotal++;
+
+        artistCards[artistCardTotal] = ArtistCard(artistCardTotal, _coverPhotoCid, _imagesCid, msg.sender);
+        emit ScratchCardCreated(artistCardTotal, _coverPhotoCid, _imagesCid, msg.sender);
+    }
+
+    /** 
      * Buy a Scratch Card NFT
      */
-    function buyScratchCard() external {
+    function buyScratchCard(uint _artistCardId) external {
+        ArtistCard storage _artistCards = artistCards[_artistCardId];
+
         scratchCardSupply++;
 
         _tokenIds.increment();
         uint _tokenId = _tokenIds.current();
         _safeMint(msg.sender, _tokenId);
+        _setTokenURI(_tokenId, _artistCards.coverPhotoCid);
 
-        scratchCards[scratchCardSupply] = ScratchCard(scratchCardSupply, new uint[](0), false, msg.sender);
-        emit ScratchCardPurchase(scratchCardSupply, new uint[](0), false, msg.sender);
+        scratchCards[scratchCardSupply] = ScratchCard(scratchCardSupply, _artistCardId, new uint[](0), false, msg.sender);
+        emit ScratchCardPurchase(scratchCardSupply, _artistCardId, new uint[](0), false, msg.sender);
     }
 
     /** 
