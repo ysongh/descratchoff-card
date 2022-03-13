@@ -1,4 +1,5 @@
 import React, { useState }from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NFTStorage, File } from 'nft.storage';
 import * as htmlToImage from 'html-to-image';
 import lighthouse from 'lighthouse-web3';
@@ -7,7 +8,9 @@ import { NFT_STRORAGE_APIKEY } from '../config';
 
 const client = new NFTStorage({ token: NFT_STRORAGE_APIKEY })
 
-function CreateCard({ provider }) {
+function CreateCard({ provider, DSOContract }) {
+  const navigate = useNavigate();
+
   const [coverImageCid, setCoverImageCid] = useState("");
   const [imagesList, setImagesList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -60,8 +63,13 @@ function CreateCard({ provider }) {
       console.log(dataUrl);
 
       console.log(coverImageCid);
+      
+      const transaction = await DSOContract.createScratchCard(coverImageCid, metadata);
+      const tx = await transaction.wait();
+      console.log(tx);
 
       setLoading(false);
+      navigate('/');
     } catch(error) {
       console.error(error);
       setLoading(false);
