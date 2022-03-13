@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { DESCRATCHOFF_ADDRESS, COVALENT_APIKEY } from '../config';
 import ScratchCardsList from '../components/ScratchCardsList';
+import ArtistCollectionsList from '../components/ArtistCollectionsList';
 
 function Home({ walletAddress, DSOContract }) {
+  const [artistCards, setArtistCards] = useState([]);
   const [scratchCards, setScratchCards] = useState([]);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
@@ -11,6 +13,25 @@ function Home({ walletAddress, DSOContract }) {
   useEffect(() => {
     if(DSOContract) getScratchCard();
   }, [DSOContract])
+
+  useEffect(() => {
+    if(DSOContract) getArtistCards();
+  }, [DSOContract])
+
+  const getArtistCards = async () => {
+    let count = await DSOContract.artistCardTotal();
+    count = count.toString();
+    console.log(count);
+
+    let cards = [];
+    for(let i = 1; i <= count; i++){
+      const collection = await DSOContract.artistCards(i);
+      cards.push(collection);
+    }
+
+    console.log(cards);
+    setArtistCards(cards);
+  }
 
   const getScratchCard = async () => {
     const nfts = await fetch(`https://api.covalenthq.com/v1/80001/tokens/${DESCRATCHOFF_ADDRESS}/nft_token_ids/?quote-currency=USD&format=JSON&key=${COVALENT_APIKEY}`);
@@ -30,11 +51,11 @@ function Home({ walletAddress, DSOContract }) {
     setScratchCards(cards);
   }
   
-  const purchaseCard = async () => {
+  const purchaseCard = async (cardId) => {
     try {
       setPurchaseLoading(true);
 
-      const transaction = await DSOContract.buyScratchCard();
+      const transaction = await DSOContract.buyScratchCard(cardId);
       const tx = await transaction.wait();
 
       console.log(tx);
@@ -54,12 +75,11 @@ function Home({ walletAddress, DSOContract }) {
       <p>
         Purchase a Digital scratch card for a chance to win something
       </p>
-      {purchaseLoading
-        ? <p>Loading...</p>
-        : <button className="btn btn-primary" onClick={purchaseCard}>
-            Purchase
-          </button>
-      }
+      <ArtistCollectionsList
+        artistCards={artistCards}
+        purchaseCard={purchaseCard}
+        purchaseLoading={purchaseLoading} />
+      
       {transactionHash &&
         <p className="text-success">
           Success, see transaction {" "}
