@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import { DESCRATCHOFF_ADDRESS, COVALENT_APIKEY } from '../config';
-import ScratchCardsList from '../components/ScratchCardsList';
 import ArtistCollectionsList from '../components/ArtistCollectionsList';
 
-function Home({ walletAddress, DSOContract }) {
+function Home({ DSOContract }) {
   const [artistCards, setArtistCards] = useState([]);
-  const [scratchCards, setScratchCards] = useState([]);
+  
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
-
-  useEffect(() => {
-    if(DSOContract) getScratchCard();
-  }, [DSOContract])
 
   useEffect(() => {
     if(DSOContract) getArtistCards();
@@ -31,24 +25,6 @@ function Home({ walletAddress, DSOContract }) {
 
     console.log(cards);
     setArtistCards(cards);
-  }
-
-  const getScratchCard = async () => {
-    const nfts = await fetch(`https://api.covalenthq.com/v1/80001/tokens/${DESCRATCHOFF_ADDRESS}/nft_token_ids/?quote-currency=USD&format=JSON&key=${COVALENT_APIKEY}`);
-    const { data } = await nfts.json();
-    console.log(data);
-
-    let cards = [];
-    for(let i = 0; i < data.items.length; i++){
-      const nft = await DSOContract.scratchCards(data.items[i].token_id);
-      
-      if(nft.owner == walletAddress){
-        cards.push(nft);
-      }
-    }
-
-    console.log(cards);
-    setScratchCards(cards);
   }
   
   const purchaseCard = async (cardId) => {
@@ -87,12 +63,6 @@ function Home({ walletAddress, DSOContract }) {
             {transactionHash.substring(0, 10) + '...' + transactionHash.substring(56, 66)}
           </a>
         </p>
-      }
-      <hr />
-      <h2>Your Digital scratch cards</h2>
-      {scratchCards.length
-        ? <ScratchCardsList scratchCards={scratchCards} />
-        : <p className="text-danger">You do not have any digital scratch cards </p>
       }
     </div>
   )

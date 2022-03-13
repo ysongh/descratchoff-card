@@ -35,6 +35,9 @@ function ScratchCard({ DSOContract }) {
     const nft = await DSOContract.scratchCards(id);
     console.log(nft);
     setShowCard(nft.isScratch);
+
+    const collection = await DSOContract.artistCards(nft.artistCardId.toString());
+    console.log(collection);
   }
 
   const getNumbers = async () => {

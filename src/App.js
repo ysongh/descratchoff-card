@@ -5,6 +5,7 @@ import './App.css';
 import Navbar from './components/layout/Navbar';
 import Home from './pages/Home';
 import ScratchCard from './pages/ScratchCard' ;
+import YourCards from './pages/YourCards';
 import CreateCard from './pages/CreateCard';
 
 function App() {
@@ -32,10 +33,15 @@ function App() {
               provider={provider}
               DSOContract={DSOContract} />} />
         <Route
+          path="/user-card"
+          element={
+            <YourCards
+              walletAddress={walletAddress}
+              DSOContract={DSOContract} />} />
+        <Route
           path="/"
           element={
             <Home
-              walletAddress={walletAddress}
               DSOContract={DSOContract} />} />
       </Routes>
     </HashRouter>

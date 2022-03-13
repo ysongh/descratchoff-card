@@ -10,7 +10,7 @@ function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract }
   const connectWallet = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
-    
+
     const provider = new ethers.providers.Web3Provider(connection);  
     console.log(provider);
     setProvider(provider);
@@ -37,6 +37,9 @@ function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract }
             </li>
             <li className="nav-item">
               <Link className="nav-link" aria-current="page" to="/create-card">Create Card</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" aria-current="page" to="/user-card">Your Cards</Link>
             </li>
           </ul>
           <button className="btn btn-outline-success" type="submit"  onClick={connectWallet}>
