@@ -25,6 +25,7 @@ function App() {
           path="/scratch-card/:id"
           element={
             <ScratchCard
+              walletAddress={walletAddress}
               DSOContract={DSOContract} />} />
         <Route
           path="/create-card"

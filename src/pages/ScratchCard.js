@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Scratchoff from '../components/Scratchoff';
+import { NFTPORT_APIKEY } from '../config';
 
 const images = [
   "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c2hhcGV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
@@ -16,9 +17,10 @@ const images = [
   "https://images.unsplash.com/photo-1514351630998-ad9175c7791d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTR8fHNoYXBlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
 ]
 
-function ScratchCard({ DSOContract }) {
+function ScratchCard({ walletAddress, DSOContract }) {
   const { id } = useParams();
 
+  const [artistCard, setArtistCard] = useState(null);
   const [showCard, setShowCard] = useState(false);
   const [numbers, setNumbers] = useState([]);
 
@@ -38,6 +40,8 @@ function ScratchCard({ DSOContract }) {
 
     const collection = await DSOContract.artistCards(nft.artistCardId.toString());
     console.log(collection);
+
+    setArtistCard(collection);
   }
 
   const getNumbers = async () => {
@@ -53,6 +57,31 @@ function ScratchCard({ DSOContract }) {
 
       console.log(tx);
       setShowCard(true);
+    } catch(error) {
+      console.error(error);
+    }
+  }
+
+  const mintNFT = async () => {
+    try{
+      const options = {
+        method: 'POST',
+        body: {
+          chain: 'polygon',
+          name: "DeScratchOff Card",
+          description: `Mint from ${artistCard.artist}`,
+          file_url: `https://ipfs.io/ipfs/${artistCard.coverPhotoCid}`,
+          mint_to_address: walletAddress,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": NFTPORT_APIKEY,
+        },
+      };
+  
+      const response = await fetch("https://api.nftport.xyz/v0/mints/easy/urls", options);
+      const json = await response.json();
+      console.log(json);
     } catch(error) {
       console.error(error);
     }
@@ -104,7 +133,13 @@ function ScratchCard({ DSOContract }) {
             </button>
           </center>
       }
-     
+      {showCard && 
+        <center style={{ marginTop: "13rem"}}>
+          <button className='btn btn-primary btn-lg' onClick={mintNFT} >
+            Mint NFT Free on Polygon
+          </button>
+        </center>
+      }
     </div>
   )
 }
