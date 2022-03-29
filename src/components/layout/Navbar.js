@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
-import { DESCRATCHOFF_ADDRESS } from '../../config';
+import { DESCRATCHOFF_ADDRESS, BICONOMY_APIKEY } from '../../config';
 import DeScratchOff from '../../artifacts/contracts/DeScratchOff.sol/DeScratchOff.json';
+
+let Biconomy = window.Biconomy;
 
 function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract }) {
   const connectWallet = async () => {
@@ -13,7 +15,11 @@ function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract }
 
     const provider = new ethers.providers.Web3Provider(connection);  
     console.log(provider);
-    setProvider(provider);
+
+    const biconomy = new Biconomy(provider,{apiKey: BICONOMY_APIKEY, debug: true});
+    let ethersProvider = new ethers.providers.Web3Provider(biconomy);
+    console.log(ethersProvider);
+    setProvider(ethersProvider);
 
     const signer = provider.getSigner();
     const address = await signer.getAddress();
