@@ -17,7 +17,7 @@ const images = [
   "https://images.unsplash.com/photo-1514351630998-ad9175c7791d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTR8fHNoYXBlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
 ]
 
-function ScratchCard({ walletAddress, DSOContract }) {
+function ScratchCard({ walletAddress, DSOContract, glDSOContract }) {
   const { id } = useParams();
 
   const [artistCard, setArtistCard] = useState(null);
@@ -52,7 +52,7 @@ function ScratchCard({ walletAddress, DSOContract }) {
 
   const redeemCard = async () => {
     try {
-      const transaction = await DSOContract.fillScratchCard(id);
+      const transaction = await glDSOContract.fillScratchCard(id);
       const tx = await transaction.wait();
 
       console.log(tx);

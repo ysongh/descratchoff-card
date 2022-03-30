@@ -12,6 +12,7 @@ function App() {
   const [walletAddress, setWalletAddress] = useState('');
   const [provider, setProvider] = useState(null);
   const [DSOContract, setDSOContract] = useState(null);
+  const [glDSOContract, setglDSOContract] = useState(null);
 
   return (
     <HashRouter>
@@ -19,14 +20,16 @@ function App() {
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
         setProvider={setProvider}
-        setDSOContract={setDSOContract} />
+        setDSOContract={setDSOContract}
+        setglDSOContract={setglDSOContract} />
       <Routes>
         <Route
           path="/scratch-card/:id"
           element={
             <ScratchCard
               walletAddress={walletAddress}
-              DSOContract={DSOContract} />} />
+              DSOContract={DSOContract}
+              glDSOContract={glDSOContract} />} />
         <Route
           path="/create-card"
           element={

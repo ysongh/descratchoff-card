@@ -8,7 +8,7 @@ import DeScratchOff from '../../artifacts/contracts/DeScratchOff.sol/DeScratchOf
 
 let Biconomy = window.Biconomy;
 
-function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract }) {
+function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
   const connectWallet = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -24,9 +24,13 @@ function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract }
     const signer = provider.getSigner();
     const address = await signer.getAddress();
     setWalletAddress(address);
+    const glSigner = ethersProvider.getSigner();
 
     let contract = new ethers.Contract(DESCRATCHOFF_ADDRESS, DeScratchOff.abi, signer);
     setDSOContract(contract);
+
+    let glcontract = new ethers.Contract(DESCRATCHOFF_ADDRESS, DeScratchOff.abi, glSigner);
+    setglDSOContract(glcontract);
   }
 
   return (
