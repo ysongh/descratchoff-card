@@ -28,6 +28,7 @@ function App() {
           element={
             <ScratchCard
               walletAddress={walletAddress}
+              provider={provider}
               DSOContract={DSOContract}
               glDSOContract={glDSOContract} />} />
         <Route

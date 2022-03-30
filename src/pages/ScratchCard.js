@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import Scratchoff from '../components/Scratchoff';
 import { NFTPORT_APIKEY } from '../config';
+import { DESCRATCHOFF_ADDRESS } from '../config';
 
 const images = [
   "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c2hhcGV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
@@ -17,7 +18,7 @@ const images = [
   "https://images.unsplash.com/photo-1514351630998-ad9175c7791d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTR8fHNoYXBlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
 ]
 
-function ScratchCard({ walletAddress, DSOContract, glDSOContract }) {
+function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
   const { id } = useParams();
 
   const [artistCard, setArtistCard] = useState(null);
@@ -52,11 +53,22 @@ function ScratchCard({ walletAddress, DSOContract, glDSOContract }) {
 
   const redeemCard = async () => {
     try {
-      const transaction = await glDSOContract.fillScratchCard(id);
-      const tx = await transaction.wait();
-
+      let { data } = await glDSOContract.populateTransaction.fillScratchCard(id);
+      let txParams = {
+        data: data,
+        to: DESCRATCHOFF_ADDRESS,
+        from: walletAddress,
+        signatureType: "PERSONAL_SIGN"
+      };
+      
+      const tx = await provider.send("eth_sendTransaction", [txParams]);
       console.log(tx);
-      setShowCard(true);
+      provider.once(tx, (transaction) => {
+        // Emitted when the transaction has been mined
+        console.log(transaction);
+        setShowCard(true);
+      });
+      
     } catch(error) {
       console.error(error);
     }
