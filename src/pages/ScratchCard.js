@@ -24,6 +24,7 @@ function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
   const [artistCard, setArtistCard] = useState(null);
   const [showCard, setShowCard] = useState(false);
   const [numbers, setNumbers] = useState([]);
+  const [transactionHash, setTransactionHash] = useState('');
 
   useEffect(() => {
     if(DSOContract) getScratchCard();
@@ -65,7 +66,8 @@ function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
       console.log(tx);
       provider.once(tx, (transaction) => {
         // Emitted when the transaction has been mined
-        console.log(transaction);
+        console.log(transaction.transactionHash);
+        setTransactionHash(transaction.transactionHash);
         setShowCard(true);
       });
       
@@ -147,6 +149,14 @@ function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
       }
       {showCard && 
         <center style={{ marginTop: "13rem"}}>
+          {transactionHash &&
+            <p className="text-success">
+              Success, see transaction {" "}
+              <a href={`https://mumbai.polygonscan.com/tx/${transactionHash}`} target="_blank" rel="noopener noreferrer">
+                {transactionHash.substring(0, 10) + '...' + transactionHash.substring(56, 66)}
+              </a>
+            </p>
+          }
           <button className='btn btn-primary btn-lg' onClick={mintNFT} >
             Mint NFT Free on Polygon
           </button>
