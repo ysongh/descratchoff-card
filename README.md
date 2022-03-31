@@ -1,6 +1,9 @@
 # DeScratchOff Card
 A digital scratch card Dapp where users can win prizes by matching 3 images
 
+- Live Site - https://descratchoffcard.netlify.app/
+- Demo - https://youtu.be/b7y8X4QDbFQ
+
 ## Technologies
 - React
 - Bootstrap 4
