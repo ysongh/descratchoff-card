@@ -11,13 +11,15 @@ function YourCards({ walletAddress, DSOContract }) {
   }, [DSOContract])
 
   const getScratchCard = async () => {
-    const nfts = await fetch(`https://api.covalenthq.com/v1/80001/tokens/${DESCRATCHOFF_ADDRESS}/nft_token_ids/?quote-currency=USD&format=JSON&key=${COVALENT_APIKEY}`);
-    const { data } = await nfts.json();
-    console.log(data);
+    // const nfts = await fetch(`https://api.covalenthq.com/v1/80001/tokens/${DESCRATCHOFF_ADDRESS}/nft_token_ids/?quote-currency=USD&format=JSON&key=${COVALENT_APIKEY}`);
+    // const { data } = await nfts.json();
+    
+    const totalCards = await DSOContract.scratchCardSupply();
+    console.log(+totalCards.toString());
 
     let cards = [];
-    for(let i = 0; i < data.items.length; i++){
-      const nft = await DSOContract.scratchCards(data.items[i].token_id);
+    for(let i = 1; i <= +totalCards.toString(); i++){
+      const nft = await DSOContract.scratchCards(i);
       
       if(nft.owner == walletAddress){
         cards.push(nft);
