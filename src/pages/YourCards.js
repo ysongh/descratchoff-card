@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { DESCRATCHOFF_ADDRESS, COVALENT_APIKEY } from '../config';
 import ScratchCardsList from '../components/ScratchCardsList';
+import { BorderSpinner } from '../components/Spinners';
 
 function YourCards({ walletAddress, DSOContract }) {
   const [scratchCards, setScratchCards] = useState([]);
@@ -41,8 +41,8 @@ function YourCards({ walletAddress, DSOContract }) {
   return (
     <div className='container'>
       <h2 className='mt-3 mb-3'>Your Digital scratch cards</h2>
-      {loading
-        ? <p>Loading...</p>
+      {!loading
+        ? <BorderSpinner />
         : scratchCards.length
           ? <ScratchCardsList scratchCards={scratchCards} />
           : <p className="text-danger">You do not have any digital scratch cards </p>
