@@ -41,7 +41,7 @@ function YourCards({ walletAddress, DSOContract }) {
   return (
     <div className='container'>
       <h2 className='mt-3 mb-3'>Your Digital scratch cards</h2>
-      {!loading
+      {loading
         ? <BorderSpinner />
         : scratchCards.length
           ? <ScratchCardsList scratchCards={scratchCards} />

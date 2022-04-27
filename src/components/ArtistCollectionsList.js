@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ButtonSpinner } from './Spinners';
+
 function ArtistCollectionsList({ artistCards, purchaseCard, purchaseLoading }) {
   return (
     <div className="row">
@@ -15,7 +17,7 @@ function ArtistCollectionsList({ artistCards, purchaseCard, purchaseLoading }) {
                 </a>
               </p>
               {purchaseLoading
-                ? <p>Loading...</p>
+                ? <ButtonSpinner />
                 : <button className="btn btn-primary" onClick={() => purchaseCard(card.id.toString())}>
                     Purchase
                   </button>
