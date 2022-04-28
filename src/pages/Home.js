@@ -55,6 +55,9 @@ function Home({ DSOContract }) {
       <p>
         Purchase a Digital scratch card for a chance to win something
       </p>
+
+      {!DSOContract && <p className="text-danger">Please connect to your wallet</p>}
+
       <ArtistCollectionsList
         artistCards={artistCards}
         purchaseCard={purchaseCard}
