@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ButtonSpinner } from './Spinners';
 
-function ArtistCollectionsCard({ card, purchaseCard, purchaseLoading }) {
+function ArtistCollectionsCard({ card, DSOContract }) {
+  const [purchaseLoading, setPurchaseLoading] = useState(false);
+  const [transactionHash, setTransactionHash] = useState('');
+  
+  const purchaseCard = async (cardId) => {
+    try {
+      setPurchaseLoading(true);
+
+      const transaction = await DSOContract.buyScratchCard(cardId);
+      const tx = await transaction.wait();
+
+      console.log(tx);
+      setTransactionHash(tx.transactionHash);
+      setPurchaseLoading(false);
+    } catch(error) {
+      console.error(error);
+      setPurchaseLoading(false);
+    }
+  }
   return (
     <div className="card">
       <img src={`https://ipfs.io/ipfs/${card.coverPhotoCid}`} className="card-img-top" alt="Cover Photo" />
@@ -18,6 +36,14 @@ function ArtistCollectionsCard({ card, purchaseCard, purchaseLoading }) {
           : <button className="btn btn-primary" onClick={() => purchaseCard(card.id.toString())}>
               Purchase
             </button>
+        }
+        {transactionHash &&
+          <p className="text-success mt-3">
+            Success, see transaction {" "}
+            <a href={`https://mumbai.polygonscan.com/tx/${transactionHash}`} target="_blank" rel="noopener noreferrer">
+              {transactionHash.substring(0, 10) + '...' + transactionHash.substring(56, 66)}
+            </a>
+          </p>
         }
       </div>
     </div>

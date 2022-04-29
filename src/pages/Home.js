@@ -4,9 +4,6 @@ import ArtistCollectionsList from '../components/ArtistCollectionsList';
 
 function Home({ DSOContract }) {
   const [artistCards, setArtistCards] = useState([]);
-  
-  const [purchaseLoading, setPurchaseLoading] = useState(false);
-  const [transactionHash, setTransactionHash] = useState('');
 
   useEffect(() => {
     if(DSOContract) getArtistCards();
@@ -26,22 +23,6 @@ function Home({ DSOContract }) {
     console.log(cards);
     setArtistCards(cards);
   }
-  
-  const purchaseCard = async (cardId) => {
-    try {
-      setPurchaseLoading(true);
-
-      const transaction = await DSOContract.buyScratchCard(cardId);
-      const tx = await transaction.wait();
-
-      console.log(tx);
-      setTransactionHash(tx.transactionHash);
-      setPurchaseLoading(false);
-    } catch(error) {
-      console.error(error);
-      setPurchaseLoading(false);
-    }
-  }
 
   return (
     <div className="container">
@@ -60,17 +41,7 @@ function Home({ DSOContract }) {
 
       <ArtistCollectionsList
         artistCards={artistCards}
-        purchaseCard={purchaseCard}
-        purchaseLoading={purchaseLoading} />
-      
-      {transactionHash &&
-        <p className="text-success">
-          Success, see transaction {" "}
-          <a href={`https://mumbai.polygonscan.com/tx/${transactionHash}`} target="_blank" rel="noopener noreferrer">
-            {transactionHash.substring(0, 10) + '...' + transactionHash.substring(56, 66)}
-          </a>
-        </p>
-      }
+        DSOContract={DSOContract}/>
     </div>
   )
 }
