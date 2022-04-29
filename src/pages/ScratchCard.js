@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Scratchoff from '../components/Scratchoff';
 import { NFTPORT_APIKEY } from '../config';
 import { DESCRATCHOFF_ADDRESS } from '../config';
+import { ButtonSpinner } from '../components/Spinners';
 
 const images = [
   "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c2hhcGV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
@@ -24,6 +25,7 @@ function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
   const [artistCard, setArtistCard] = useState(null);
   const [showCard, setShowCard] = useState(false);
   const [numbers, setNumbers] = useState([]);
+  const [redeemLoading, setRedeemLoading] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
 
   useEffect(() => {
@@ -54,6 +56,8 @@ function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
 
   const redeemCard = async () => {
     try {
+      setRedeemLoading(true);
+
       let { data } = await glDSOContract.populateTransaction.fillScratchCard(id);
       let txParams = {
         data: data,
@@ -69,10 +73,12 @@ function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
         console.log(transaction.transactionHash);
         setTransactionHash(transaction.transactionHash);
         setShowCard(true);
+        setRedeemLoading(false);
       });
       
     } catch(error) {
       console.error(error);
+      setRedeemLoading(false);
     }
   }
 
@@ -142,9 +148,12 @@ function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
           </>
         : <center>
             <h2 className="mt-4 mb-3">Redeem your digital scratch card</h2>
-            <button className="btn btn-primary btn-lg" onClick={redeemCard}>
-              Redeem
-            </button>
+            {redeemLoading
+              ? <ButtonSpinner />
+              : <button className="btn btn-primary btn-lg" onClick={redeemCard}>
+                  Redeem
+                </button>
+            }
           </center>
       }
       {showCard && 
