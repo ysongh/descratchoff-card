@@ -114,7 +114,7 @@ contract DeScratchOff is VRFConsumerBase, ERC721URIStorage{
         getRandomNumber();
 
         for(uint i = 0; i < 9; i++){
-            uint256 _randomNumber = uint256(keccak256(abi.encode(randomResult, i))) % 9 + 1;
+            uint256 _randomNumber = uint256(keccak256(abi.encode(randomResult, i))) % 8 + 1;        // 0 - 9
             _scratchCard.numbers.push(_randomNumber);
         }
     }
