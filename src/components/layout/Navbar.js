@@ -46,6 +46,9 @@ function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract, 
               <Link className="nav-link" aria-current="page" to="/">Home</Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" aria-current="page" to="/scratchcardlist">Card List</Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" aria-current="page" to="/create-card">Create Card</Link>
             </li>
             <li className="nav-item">

@@ -3,7 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import Navbar from './components/layout/Navbar';
-import Home from './pages/Home';
+import ScratchCardList from './pages/ScratchCardList';
 import ScratchCard from './pages/ScratchCard' ;
 import YourCards from './pages/YourCards';
 import CreateCard from './pages/CreateCard';
@@ -44,10 +44,14 @@ function App() {
               walletAddress={walletAddress}
               DSOContract={DSOContract} />} />
         <Route
+          path="/scratchcardlist"
+          element={
+            <ScratchCardList
+              DSOContract={DSOContract} />} />
+        <Route
           path="/"
           element={
-            <Home
-              DSOContract={DSOContract} />} />
+            <h1>HOme</h1>} />
       </Routes>
     </HashRouter>
   );

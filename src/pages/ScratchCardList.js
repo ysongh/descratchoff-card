@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import ArtistCollectionsList from '../components/ArtistCollectionsList';
 
-function Home({ DSOContract }) {
+function ScratchCardList({ DSOContract }) {
   const [artistCards, setArtistCards] = useState([]);
 
   useEffect(() => {
@@ -46,4 +46,4 @@ function Home({ DSOContract }) {
   )
 }
 
-export default Home;
+export default ScratchCardList;
