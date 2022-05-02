@@ -58,7 +58,7 @@ function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress
               <Link className="nav-link" aria-current="page" to="/user-card">Your Cards</Link>
             </li>
           </ul>
-          {maticBalance &&  <span className="badge bg-primary me-3">{maticBalance / 10 ** 18} MATIC</span>}
+          {maticBalance &&  <span className="badge bg-primary me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span>}
           <button className="btn btn-outline-success" type="submit"  onClick={connectWallet}>
             {walletAddress ? walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42) : "Connect to Wallet"}
           </button>
