@@ -8,7 +8,7 @@ import DeScratchOff from '../../artifacts/contracts/DeScratchOff.sol/DeScratchOf
 
 let Biconomy = window.Biconomy;
 
-function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
+function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
   const connectWallet = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -25,6 +25,9 @@ function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract, 
     const address = await signer.getAddress();
     setWalletAddress(address);
     const glSigner = ethersProvider.getSigner();
+
+    const balance = await provider.getBalance(address);
+    setmaticBalance(balance)
 
     let contract = new ethers.Contract(DESCRATCHOFF_ADDRESS, DeScratchOff.abi, signer);
     setDSOContract(contract);
@@ -55,6 +58,7 @@ function Navbar({ walletAddress, setWalletAddress, setProvider, setDSOContract, 
               <Link className="nav-link" aria-current="page" to="/user-card">Your Cards</Link>
             </li>
           </ul>
+          {maticBalance &&  <span className="badge bg-primary me-3">{maticBalance / 10 ** 18} MATIC</span>}
           <button className="btn btn-outline-success" type="submit"  onClick={connectWallet}>
             {walletAddress ? walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42) : "Connect to Wallet"}
           </button>
