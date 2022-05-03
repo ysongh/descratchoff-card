@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import Navbar from './components/layout/Navbar';
+import Home from './pages/Home';
 import ScratchCardList from './pages/ScratchCardList';
 import ScratchCard from './pages/ScratchCard' ;
 import YourCards from './pages/YourCards';
@@ -54,7 +55,7 @@ function App() {
         <Route
           path="/"
           element={
-            <h1>HOme</h1>} />
+            <Home />} />
       </Routes>
     </HashRouter>
   );
