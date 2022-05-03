@@ -39,7 +39,9 @@ function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <Link className="navbar-brand" to="/">DeScratchOff Card</Link>
+        <Link className="navbar-brand" to="/">
+          <img src="./logo.png" alt="logo" style={{ width: '80px' }} />
+        </Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
