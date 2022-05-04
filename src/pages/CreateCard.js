@@ -50,9 +50,11 @@ function CreateCard({ provider, DSOContract }) {
       setLoading(true);
 
       let sendFiles = [];
+      let imageNames = [];
       
       for(let image of imagesList){
         sendFiles.push(new File([image.file], image.fileName, { type: image.fileType }));
+        imageNames.push(image.fileName);
       }
 
       const metadata = await client.storeDirectory(sendFiles);
@@ -64,7 +66,7 @@ function CreateCard({ provider, DSOContract }) {
 
       console.log(coverImageCid);
       
-      const transaction = await DSOContract.createScratchCard(coverImageCid, metadata);
+      const transaction = await DSOContract.createScratchCard(coverImageCid, metadata, imageNames);
       const tx = await transaction.wait();
       console.log(tx);
 
