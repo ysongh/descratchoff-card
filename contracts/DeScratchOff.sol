@@ -30,6 +30,7 @@ contract DeScratchOff is VRFConsumerBase, ERC721URIStorage{
         uint id;
         string coverPhotoCid;
         string imagesCid;
+        string[] imagesName;
         address artist;
     }
 
@@ -45,6 +46,7 @@ contract DeScratchOff is VRFConsumerBase, ERC721URIStorage{
         uint id,
         string coverPhotoCid,
         string imagesCid,
+        string[] imagesName,
         address artist
     );
 
@@ -70,11 +72,11 @@ contract DeScratchOff is VRFConsumerBase, ERC721URIStorage{
     /** 
      * Create a Scratch Card
      */
-    function createScratchCard(string memory _coverPhotoCid, string memory _imagesCid) external {
+    function createScratchCard(string memory _coverPhotoCid, string memory _imagesCid, string[] memory _imagesNames) external {
         artistCardTotal++;
 
-        artistCards[artistCardTotal] = ArtistCard(artistCardTotal, _coverPhotoCid, _imagesCid, msg.sender);
-        emit ScratchCardCreated(artistCardTotal, _coverPhotoCid, _imagesCid, msg.sender);
+        artistCards[artistCardTotal] = ArtistCard(artistCardTotal, _coverPhotoCid, _imagesCid, _imagesNames, msg.sender);
+        emit ScratchCardCreated(artistCardTotal, _coverPhotoCid, _imagesCid, _imagesNames, msg.sender);
     }
 
     /** 
@@ -95,11 +97,19 @@ contract DeScratchOff is VRFConsumerBase, ERC721URIStorage{
     }
 
     /** 
-     * Get numbers on Scratch Card
+     * Get numbers from Scratch Card
      */
     function getNumbersByScratchCard(uint _id) public view returns (uint [] memory){
         ScratchCard storage _scratchCard = scratchCards[_id];
         return _scratchCard.numbers;
+    }
+
+    /** 
+     * Get image names from Artist Card
+     */
+    function getImageNamesByArtistCard(uint _id) public view returns (string [] memory){
+        ArtistCard storage _artistCards = artistCards[_id];
+        return _artistCards.imagesName;
     }
 
     /** 
