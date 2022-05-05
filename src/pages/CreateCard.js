@@ -64,14 +64,14 @@ function CreateCard({ provider, DSOContract }) {
       const dataUrl = await htmlToImage.toPng(userCollection);
       console.log(dataUrl);
 
-      console.log(coverImageCid);
+      console.log(imageNames);
       
-      const transaction = await DSOContract.createScratchCard(coverImageCid, metadata, imageNames);
+      const transaction = await DSOContract.createScratchCard(`${metadata}/${imageNames[0]}`, metadata, imageNames);
       const tx = await transaction.wait();
       console.log(tx);
 
       setLoading(false);
-      navigate('/');
+      navigate('/scratchcardlist');
     } catch(error) {
       console.error(error);
       setLoading(false);
@@ -98,12 +98,12 @@ function CreateCard({ provider, DSOContract }) {
     <div className="container">
       <div className="card card-body m-auto mt-4" style={{ maxWidth: "500px"}}>
         <h2>Create Digital Scratch Card</h2>
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="cover-photo" className="form-label">
             Add Image for Digital Scratch Card Cover
           </label>
           <input className="form-control" type="file" id="cover-photo" onChange={uploadCoverImageToLighthouse} />
-        </div>
+        </div> */}
         <div className="mb-3">
           <label htmlFor="formFileMultiple" className="form-label">
             Add 9 Images
