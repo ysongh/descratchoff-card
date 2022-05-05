@@ -1,7 +1,7 @@
 import React from 'react';
 import Sketch from "react-p5";
 
-function Scratchoff({ image }) {
+function Scratchoff({ imageCid }) {
 	const setup = (p5, canvasParentRef) => {
     p5.createCanvas(200, 200).parent(canvasParentRef);
   };
@@ -17,7 +17,7 @@ function Scratchoff({ image }) {
 		<div style={{ position: "relative" }}>
 			<section className="scratch-card">
         <center className="box">
-          <img src={image} alt="Icon" />
+          <img src={`https://ipfs.io/ipfs/${imageCid}`} alt="Icon" />
         </center>
       </section>
       <Sketch setup={setup} draw={draw} />
