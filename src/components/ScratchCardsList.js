@@ -11,7 +11,7 @@ function ScratchCardsList({ scratchCards }) {
               <h5 className="card-title">NFT #{card.id.toString()}</h5>
               <p className="card-text">From Card #{card.artistCardId.toString()}</p>
               <p className="card-text">{card.isScratch ? "Already Used" : "Not Used"}</p>
-              <Link to={`/scratch-card/${card.id.toString()}`} className="btn btn-primary btn-b">
+              <Link to={`/scratch-card/${card.id.toString()}/${card.artistCardId.toString()}`} className="btn btn-primary btn-b">
                 View
               </Link>
             </div>

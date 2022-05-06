@@ -7,7 +7,7 @@ import { DESCRATCHOFF_ADDRESS } from '../config';
 import { ButtonSpinner } from '../components/Spinners';
 
 function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
-  const { id } = useParams();
+  const { id, artistid } = useParams();
 
   const [artistCard, setArtistCard] = useState(null);
   const [showCard, setShowCard] = useState(false);
@@ -46,7 +46,7 @@ function ScratchCard({ walletAddress, provider, DSOContract, glDSOContract }) {
   }
 
   const getImageNames = async () => {
-    const images = await DSOContract.getImageNamesByArtistCard(id);
+    const images = await DSOContract.getImageNamesByArtistCard(artistid);
     console.log(images);
     setImageNames(images);
   }

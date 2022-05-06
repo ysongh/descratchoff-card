@@ -28,7 +28,7 @@ function App() {
         setglDSOContract={setglDSOContract} />
       <Routes>
         <Route
-          path="/scratch-card/:id"
+          path="/scratch-card/:id/:artistid"
           element={
             <ScratchCard
               walletAddress={walletAddress}
