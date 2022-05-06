@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { ButtonSpinner } from './Spinners';
 
+const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1531685250784-7569952593d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
+
 function ArtistCollectionsCard({ card, DSOContract }) {
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
@@ -23,7 +25,7 @@ function ArtistCollectionsCard({ card, DSOContract }) {
   }
   return (
     <div className="card">
-      <img src={`https://ipfs.io/ipfs/${card.coverPhotoCid}`} className="card-img-top" alt="Cover Photo" />
+      <img src={card.coverPhotoCid ?`https://ipfs.io/ipfs/${card.coverPhotoCid}` : DEFAULT_IMAGE} className="card-img-top" alt="Cover Photo" />
       <div className="card-body">
         <h5 className="card-title">Card #{card.id.toString()}</h5>
         <p className="card-text">
