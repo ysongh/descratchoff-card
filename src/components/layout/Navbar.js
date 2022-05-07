@@ -1,12 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
+import UAuth from '@uauth/js';
 import Web3Modal from 'web3modal';
 
-import { DESCRATCHOFF_ADDRESS, BICONOMY_APIKEY } from '../../config';
+import { DESCRATCHOFF_ADDRESS, BICONOMY_APIKEY, UNSTOPPABLEDOMAINS_CLIENTID, UNSTOPPABLEDOMAINS_REDIRECT_URI } from '../../config';
 import DeScratchOff from '../../artifacts/contracts/DeScratchOff.sol/DeScratchOff.json';
 
 let Biconomy = window.Biconomy;
+
+const uauth = new UAuth({
+  clientID: UNSTOPPABLEDOMAINS_CLIENTID,
+  redirectUri: UNSTOPPABLEDOMAINS_REDIRECT_URI,
+})
 
 function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
   const connectWallet = async () => {
@@ -36,6 +42,16 @@ function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress
     setglDSOContract(glcontract);
   }
 
+  const loginWithUnstoppableDomains = async () => {
+    try {
+      const authorization = await uauth.loginWithPopup();
+   
+      console.log(authorization);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -61,7 +77,7 @@ function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress
             </li>
           </ul>
           {maticBalance &&  <span className="badge bg-primary me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span>}
-          <button className="btn btn-outline-success" type="submit"  onClick={connectWallet}>
+          <button className="btn btn-outline-success" type="submit"  onClick={loginWithUnstoppableDomains}>
             {walletAddress ? walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42) : "Connect to Wallet"}
           </button>
         </div>
