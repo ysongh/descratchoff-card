@@ -11,6 +11,7 @@ import CreateCard from './pages/CreateCard';
 
 function App() {
   const [walletAddress, setWalletAddress] = useState('');
+  const [domainData, setDomainData] = useState('');
   const [maticBalance, setmaticBalance] = useState('');
   const [provider, setProvider] = useState(null);
   const [DSOContract, setDSOContract] = useState(null);
@@ -21,6 +22,8 @@ function App() {
       <Navbar
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
+        domainData={domainData}
+        setDomainData={setDomainData}
         maticBalance={maticBalance}
         setmaticBalance={setmaticBalance}
         setProvider={setProvider}

@@ -14,7 +14,7 @@ const uauth = new UAuth({
   redirectUri: UNSTOPPABLEDOMAINS_REDIRECT_URI,
 })
 
-function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
+function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmaticBalance, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
   const connectWallet = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -47,6 +47,7 @@ function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress
       const authorization = await uauth.loginWithPopup();
    
       console.log(authorization);
+      setDomainData(authorization);
     } catch (error) {
       console.error(error);
     }
@@ -78,7 +79,12 @@ function Navbar({ walletAddress, maticBalance, setmaticBalance, setWalletAddress
           </ul>
           {maticBalance &&  <span className="badge bg-primary me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span>}
           <button className="btn btn-outline-success" type="submit"  onClick={loginWithUnstoppableDomains}>
-            {walletAddress ? walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42) : "Connect to Wallet"}
+            {domainData?.idToken?.sub
+              ? domainData?.idToken?.sub
+              : walletAddress
+                ? walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42)
+                : "Connect to Wallet"
+            }
           </button>
         </div>
       </div>
