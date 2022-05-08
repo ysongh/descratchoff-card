@@ -77,15 +77,20 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
               <Link className="nav-link" aria-current="page" to="/user-card">Your Cards</Link>
             </li>
           </ul>
-          {maticBalance &&  <span className="badge bg-primary me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span>}
-          <button className="btn btn-outline-success" type="submit"  onClick={loginWithUnstoppableDomains}>
-            {domainData?.idToken?.sub
-              ? domainData?.idToken?.sub
-              : walletAddress
-                ? walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42)
-                : "Connect to Wallet"
-            }
-          </button>
+          {maticBalance &&  <h5><span className="badge bg-primary mt-2 me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span></h5>}
+          {domainData?.idToken?.sub
+            ? <h5 className='mt-2'><span className="badge bg-primary">{domainData?.idToken?.sub}</span></h5>
+            : walletAddress
+              ? <h5 className='mt-2'><span className="badge bg-primary">{walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42)}</span></h5>
+              : <>
+                  <button className="btn btn-outline-primary me-2" type="submit"  onClick={loginWithUnstoppableDomains}>
+                    Login with Unstoppable
+                  </button>
+                  <button className="btn btn-outline-success" type="submit"  onClick={connectWallet}>
+                    Connect to Wallet
+                  </button>
+                </>
+          }
         </div>
       </div>
     </nav>
