@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import UAuth from '@uauth/js';
@@ -15,6 +15,18 @@ const uauth = new UAuth({
 })
 
 function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmaticBalance, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
+  useEffect(() => {
+    uauth
+      .user()
+      .then(userData => {
+        console.log(userData);
+        setDomainData(userData);
+      })
+      .catch(error => {
+        console.error('profile error:', error);
+      })
+  }, [])
+
   const connectWallet = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -45,7 +57,7 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
   const loginWithUnstoppableDomains = async () => {
     try {
       const authorization = await uauth.loginWithPopup();
-   
+      authorization.sub = authorization.idToken.sub;
       console.log(authorization);
       setDomainData(authorization);
     } catch (error) {
@@ -78,8 +90,8 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
             </li>
           </ul>
           {maticBalance &&  <h5><span className="badge bg-primary mt-2 me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span></h5>}
-          {domainData?.idToken?.sub
-            ? <h5 className='mt-2'><span className="badge bg-primary">{domainData?.idToken?.sub}</span></h5>
+          {domainData?.sub
+            ? <h5 className='mt-2'><span className="badge bg-primary">{domainData?.sub}</span></h5>
             : walletAddress
               ? <h5 className='mt-2'><span className="badge bg-primary">{walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42)}</span></h5>
               : <>
