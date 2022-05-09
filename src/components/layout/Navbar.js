@@ -12,7 +12,7 @@ let Biconomy = window.Biconomy;
 const uauth = new UAuth({
   clientID: UNSTOPPABLEDOMAINS_CLIENTID,
   redirectUri: UNSTOPPABLEDOMAINS_REDIRECT_URI,
-})
+});
 
 function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmaticBalance, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
   useEffect(() => {
@@ -65,6 +65,16 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
     }
   }
 
+  const logoutFromUnstoppableDomains = async () => {
+    try {
+      await uauth.logout();
+
+      setDomainData(null);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -90,8 +100,13 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
             </li>
           </ul>
           {maticBalance &&  <h5><span className="badge bg-primary mt-2 me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span></h5>}
-          {domainData?.sub
-            ? <h5 className='mt-2'><span className="badge bg-primary">{domainData?.sub}</span></h5>
+          {domainData
+            ? <>
+                <h5 className='mt-2'><span className="badge bg-primary">{domainData?.sub}</span></h5>
+                  <button className="btn btn-danger btn-sm ms-2" onClick={logoutFromUnstoppableDomains}>
+                    Logout
+                  </button>
+                </>
             : walletAddress
               ? <h5 className='mt-2'><span className="badge bg-primary">{walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42)}</span></h5>
               : <>
