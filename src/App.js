@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import ScratchCardList from './pages/ScratchCardList';
 import ScratchCard from './pages/ScratchCard' ;
@@ -60,6 +61,8 @@ function App() {
           element={
             <Home />} />
       </Routes>
+      <div className='mt-5'></div>
+      <Footer/>
     </HashRouter>
   );
 }
