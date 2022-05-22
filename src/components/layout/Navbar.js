@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 import UAuth from '@uauth/js';
 import Web3Modal from 'web3modal';
@@ -15,6 +15,8 @@ const uauth = new UAuth({
 });
 
 function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmaticBalance, setWalletAddress, setProvider, setDSOContract, setglDSOContract }) {
+  const nagivate = useNavigate();
+
   useEffect(() => {
     uauth
       .user()
@@ -60,6 +62,7 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
       authorization.sub = authorization.idToken.sub;
       console.log(authorization);
       setDomainData(authorization);
+      nagivate('./scratchcardlist');
     } catch (error) {
       console.error(error);
     }

@@ -26,10 +26,6 @@ function ScratchCardList({ DSOContract }) {
 
   return (
     <div className="container">
-      <div className="alert alert-info alert-dismissible fade show" role="alert">
-        <strong>Contract is deployed on Polygon Test Network</strong>
-        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
       <h1 className="mt-3">
         Try your luck
       </h1>

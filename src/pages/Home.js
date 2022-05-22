@@ -6,6 +6,12 @@ function Home() {
 
   return (
     <div>
+      <div className="alert alert-info alert-dismissible fade show" role="alert">
+        <div className='container'>
+          <strong>Contract is deployed on Polygon Test Network</strong>
+          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
       <header>
         <div className="container">
           <div className="row py-5">
