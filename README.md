@@ -1,8 +1,25 @@
 # DeScratchOff Card
 A digital scratch card Dapp where users can win prizes by matching 3 images
 
-- Live Site - https://descratchoffcard.netlify.app/
-- Demo - https://youtu.be/b7y8X4QDbFQ
+## Info
+
+### Project name
+DeScratchOff Card
+
+### Link to working code in a public repo OR PR link to a public repo
+https://github.com/ysongh/descratchoff-card/tree/unstoppabledomains
+
+### Recorded video demo of the integration (max. 3 mins)
+https://youtu.be/HV1YGKYhHdY
+
+### Person of contact in case there are any questions
+You Song#4593
+
+### Discord ID
+You Song#4593
+
+### UnstoppableDomain registered account email address
+ysongweb3@gmail.com
 
 ## Technologies
 - React
