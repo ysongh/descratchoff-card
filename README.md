@@ -16,6 +16,7 @@ A digital scratch card Dapp where users can win prizes by matching 3 images
 - Chainlink VRF (Determine if the user won something from digital scratch card )
 - Lighthouse (Store digital scratch card's cover on IPFS forever)
 - Gasless SDK (Gasless transactions for redeeming digital scratch card)
+- Unstoppable Domains Login
 
 ## Running the dapp on local host
 - Clone or download this repository
@@ -35,5 +36,7 @@ export const NFT_STRORAGE_APIKEY = <KEY>;
 export const NFTPORT_APIKEY = <KEY>;
 export const DESCRATCHOFF_ADDRESS = <KEY>;
 export const BICONOMY_APIKEY = <KEY>;
+export const UNSTOPPABLEDOMAINS_CLIENTID = "< Your Unstoppable Domains Client Id >";
+export const UNSTOPPABLEDOMAINS_REDIRECT_URI = "< Your Unstoppable Domains Redirect URL >";
 ```
 - Run `npm start` to start the dapp
