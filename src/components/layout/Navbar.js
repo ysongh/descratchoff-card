@@ -62,7 +62,7 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
       authorization.sub = authorization.idToken.sub;
       console.log(authorization);
       setDomainData(authorization);
-      nagivate('./scratchcardlist');
+      nagivate('./user-card');
     } catch (error) {
       console.error(error);
     }
