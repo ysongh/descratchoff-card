@@ -54,6 +54,7 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
 
     let glcontract = new ethers.Contract(DESCRATCHOFF_ADDRESS, DeScratchOff.abi, glSigner);
     setglDSOContract(glcontract);
+    nagivate('./scratchcardlist');
   }
 
   const loginWithUnstoppableDomains = async () => {
