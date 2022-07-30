@@ -23,6 +23,7 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
       .then(userData => {
         console.log(userData);
         setDomainData(userData);
+        connectWallet();
       })
       .catch(error => {
         console.error('profile error:', error);
@@ -63,7 +64,7 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
       authorization.sub = authorization.idToken.sub;
       console.log(authorization);
       setDomainData(authorization);
-      nagivate('./user-card');
+      connectWallet();
     } catch (error) {
       console.error(error);
     }
