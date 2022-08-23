@@ -72,9 +72,10 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
 
   const logoutFromUnstoppableDomains = async () => {
     try {
-      await uauth.logout();
+      if(domainData)await uauth.logout();
 
       setDomainData(null);
+      setWalletAddress("");
     } catch (error) {
       console.error(error);
     }
@@ -105,15 +106,15 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
             </li>
           </ul>
           {maticBalance &&  <h5><span className="badge bg-primary mt-2 me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span></h5>}
-          {domainData
-            ? <>
-                <h5 className='mt-2'><span className="badge bg-primary">{domainData?.sub}</span></h5>
-                  <button className="btn btn-danger btn-sm ms-2" onClick={logoutFromUnstoppableDomains}>
-                    Logout
-                  </button>
-                </>
-            : walletAddress
-              ? <h5 className='mt-2'><span className="badge bg-primary">{walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42)}</span></h5>
+          {domainData || walletAddress
+            ? <div className="btn-group">
+                <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  {domainData?.sub || walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42)}
+                </button>
+                <ul className="dropdown-menu">
+                  <li><a className="dropdown-item" onClick={logoutFromUnstoppableDomains}>Logout</a></li>
+                </ul>
+              </div>
               : <>
                   <button className="btn btn-outline-primary me-2" type="submit"  onClick={loginWithUnstoppableDomains}>
                     Login with Unstoppable
