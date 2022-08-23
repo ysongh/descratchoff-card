@@ -35,9 +35,11 @@ function ArtistCollectionsCard({ card, DSOContract }) {
         </p>
         {purchaseLoading
           ? <ButtonSpinner />
-          : <button className="btn btn-primary" onClick={() => purchaseCard(card.id.toString())}>
-              Purchase
-            </button>
+          : <div className="d-grid gap-2">
+              <button className="btn btn-primary" onClick={() => purchaseCard(card.id.toString())}>
+                Purchase
+              </button>
+            </div>
         }
         {transactionHash &&
           <p className="text-success mt-3">
