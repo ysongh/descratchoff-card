@@ -42,7 +42,7 @@ function CreateCard({ provider, DSOContract }) {
         fileType: files[i].type
       });
     }
-    setImagesList(newImages);
+    setImagesList([...imagesList, ...newImages]);
   }
 
   const createCard = async () => {
