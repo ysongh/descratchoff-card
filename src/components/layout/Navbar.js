@@ -101,9 +101,6 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
             <li className="nav-item">
               <Link className="nav-link" aria-current="page" to="/create-card">Create Card</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" aria-current="page" to="/user-card">Your Cards</Link>
-            </li>
           </ul>
           {maticBalance &&  <h5><span className="badge bg-primary mt-2 me-3">{+parseFloat(maticBalance / 10 ** 18).toFixed(3)} MATIC</span></h5>}
           {domainData || walletAddress
@@ -112,6 +109,7 @@ function Navbar({ walletAddress, domainData, setDomainData, maticBalance, setmat
                   {domainData?.sub || walletAddress.substring(0,8) + "..." + walletAddress.substring(34,42)}
                 </button>
                 <ul className="dropdown-menu">
+                  <li><Link className="dropdown-item" to="/user-card">Your Cards</Link></li>
                   <li><a className="dropdown-item" onClick={logoutFromUnstoppableDomains}>Logout</a></li>
                 </ul>
               </div>
