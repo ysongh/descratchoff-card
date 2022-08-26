@@ -12,7 +12,7 @@ import CreateCard from './pages/CreateCard';
 
 function App() {
   const [walletAddress, setWalletAddress] = useState('');
-  const [domainData, setDomainData] = useState('');
+  const [domainData, setDomainData] = useState(null);
   const [maticBalance, setmaticBalance] = useState('');
   const [provider, setProvider] = useState(null);
   const [DSOContract, setDSOContract] = useState(null);
