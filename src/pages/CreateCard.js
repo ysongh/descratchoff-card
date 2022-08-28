@@ -123,9 +123,9 @@ function CreateCard({ provider, DSOContract }) {
         </div>
         {loading
            ? <p>Loading...</p>
-           : <button className="btn btn-primary mb-3" onClick={createCard}>
-                Create Card
-              </button>
+           : <button className="btn btn-primary mb-3" onClick={createCard} disabled={imagesList.length !== 9}>
+              Create Card
+            </button>
         }
       </div>
     </div>
