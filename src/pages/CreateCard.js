@@ -45,6 +45,10 @@ function CreateCard({ provider, DSOContract }) {
     setImagesList([...imagesList, ...newImages]);
   }
 
+  const removeImage = id => {
+    setImagesList([...imagesList.filter((img, index) => index !== id)]);
+  }
+
   const createCard = async () => {
     try {
       setLoading(true);
@@ -113,7 +117,7 @@ function CreateCard({ provider, DSOContract }) {
         <div id="user-collection" className="row my-4">
           {imagesList.map((image, index) => (
             <div key={index} className="col-4">
-              <img src={URL.createObjectURL(image.file)} className="img-fluid" alt={image.fileName} />
+              <img src={URL.createObjectURL(image.file)} className="img-fluid" alt={image.fileName} onClick={() => removeImage(index)}/>
             </div>
            ))}
         </div>
