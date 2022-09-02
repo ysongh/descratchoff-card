@@ -110,7 +110,7 @@ function CreateCard({ provider, DSOContract }) {
         </div> */}
         <div className="mb-3">
           <label htmlFor="formFileMultiple" className="form-label">
-            Add 9 Images
+            Add {9 - imagesList.length} More Images
           </label>
           <input className="form-control" type="file" id="formFileMultiple" onChange={getImage} multiple />
         </div>
