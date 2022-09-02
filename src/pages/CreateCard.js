@@ -116,8 +116,12 @@ function CreateCard({ provider, DSOContract }) {
         </div>
         <div id="user-collection" className="row my-4">
           {imagesList.map((image, index) => (
-            <div key={index} className="col-4">
-              <img src={URL.createObjectURL(image.file)} className="img-fluid" alt={image.fileName} onClick={() => removeImage(index)}/>
+            <div key={index} className="col-4 relative mb-3">
+              <button className="btn btn-danger btn-remove btn-sm" onClick={() => removeImage(index)}>
+                X
+              </button>
+              <img src={URL.createObjectURL(image.file)} className="img-fluid" alt={image.fileName} />
+              
             </div>
            ))}
         </div>
